@@ -22,11 +22,11 @@ public class GameSystem : MonoBehaviour
     {
         SoundManager.instance.PlayBGM(SoundManager.BGM.Main);
         score = 0;
-        timeCount = ParamsSO.Entity.timeLimit;
+        timeCount = ParamsSO.Entity.TimeLimit;
 
         AddScore(score);
 
-        StartCoroutine(ballGenerator.Spawns(ParamsSO.Entity.initBallCount));
+        StartCoroutine(ballGenerator.Spawns(ParamsSO.Entity.InitBallCount));
         StartCoroutine(CountDown());
     }
 
@@ -111,7 +111,7 @@ public class GameSystem : MonoBehaviour
             {
                 float distance = Vector2.Distance(ball.transform.position, currentDraggingBall.transform.position);
 
-                if (distance < ParamsSO.Entity.ballDistance)
+                if (distance < ParamsSO.Entity.BallDistance)
                 {
                     AddRemoveBall(ball);
                 }
@@ -124,13 +124,13 @@ public class GameSystem : MonoBehaviour
     {
         int removeCount = removeBalls.Count;
 
-        if (removeCount >= ParamsSO.Entity.ballMinNumber)
+        if (removeCount >= ParamsSO.Entity.BallMinNumber)
         {
             for (int i = 0; i < removeCount; i++)
             {
                 removeBalls[i].Explosion();
             }
-            int score = removeCount * ParamsSO.Entity.scorePoint;
+            int score = removeCount * ParamsSO.Entity.ScorePoint;
             AddScore(score);
             StartCoroutine(ballGenerator.Spawns(removeCount));
             SpawnPointEffect(removeBalls[removeCount - 1].transform.position, score);
@@ -166,7 +166,7 @@ public class GameSystem : MonoBehaviour
     void Explosion(Ball bomb)
     {
         List<Ball> explosionList = new List<Ball>();
-        Collider2D[] hitObj = Physics2D.OverlapCircleAll(bomb.transform.position, ParamsSO.Entity.bombRange);
+        Collider2D[] hitObj = Physics2D.OverlapCircleAll(bomb.transform.position, ParamsSO.Entity.BombRange);
 
         for (int i = 0; i < hitObj.Length; i++)
         {
@@ -182,7 +182,7 @@ public class GameSystem : MonoBehaviour
         {
             explosionList[i].Explosion();
         }
-        int score = removeCount * ParamsSO.Entity.scorePoint;
+        int score = removeCount * ParamsSO.Entity.ScorePoint;
         AddScore(score);
         StartCoroutine(ballGenerator.Spawns(removeCount));
         SpawnPointEffect(bomb.transform.position, score);

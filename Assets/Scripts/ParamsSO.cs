@@ -4,20 +4,75 @@ using UnityEngine;
 public class ParamsSO : ScriptableObject
 {
     [Header("制限時間(s)")]
-    public int timeLimit;
+    [SerializeField]
+    private int _timeLimit;
+
+    public int TimeLimit
+    {
+        get { return _timeLimit; }
+        set { _timeLimit = value; }
+    }
+
     [Header("初期のボールの数")]
-    public int initBallCount;
+    [SerializeField]
+    private int _initBallCount;
+
+    public int InitBallCount
+    {
+        get { return _initBallCount; }
+        set { _initBallCount = value; }
+    }
+
     [Header("消せる最小個数")]
-    public int ballMinNumber;
+    [SerializeField]
+    private int _ballMinNumber;
+
+    public int BallMinNumber
+    {
+        get { return _ballMinNumber; }
+        set { _ballMinNumber = value; }
+    }
+
     [Header("ボールを消した時の得点")]
-    public int scorePoint;
+    [SerializeField]
+    private int _scorePoint;
+
+    public int ScorePoint
+    {
+        get { return _scorePoint; }
+        set { _scorePoint = value; }
+    }
+
     [Header("ボールの判定距離")]
-    public float ballDistance;
+    [SerializeField]
+    private float _ballDistance;
+
+    public float BallDistance
+    {
+        get { return _ballDistance; }
+        set { _ballDistance = value; }
+    }
+
     [Header("ボムの爆破範囲")]
-    [Range(1, 10)]
-    public float bombRange;
+    [SerializeField]
+    [Range(1, 3)]
+    private float _bombRange;
+
+    public float BombRange
+    {
+        get { return _bombRange; }
+        set { _bombRange = value; }
+    }
+
     [Header("ボムが出る確率(%)")]
-    public int bombRate;
+    [SerializeField]
+    private int _bombRate;
+
+    public int BombRate
+    {
+        get { return _bombRate; }
+        set { _bombRate = value; }
+    }
 
     //MyScriptableObjectが保存してある場所のパス
     public const string PATH = "ParamsSO";
