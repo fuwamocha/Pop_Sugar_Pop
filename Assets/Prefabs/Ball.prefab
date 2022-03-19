@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5566674475938804336}
   - component: {fileID: 5566674475938804351}
   - component: {fileID: 7338051498300484192}
+  - component: {fileID: 5352741144990618299}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -137,3 +138,15 @@ MonoBehaviour:
   id: 0
   explosionPrefab: {fileID: 7357132968732057093, guid: 32a2e84d0a1d8854fac899aace5f7945,
     type: 3}
+--- !u!114 &5352741144990618299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5566674475938804350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ece71d68a3beee488b318521729287c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

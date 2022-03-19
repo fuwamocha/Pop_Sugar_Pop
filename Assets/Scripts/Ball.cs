@@ -15,12 +15,6 @@ public class Ball : MonoBehaviour
 
     public bool IsBomb()
     {
-        /* 
-        if (id == -1)
-        {
-            return true;
-        }
-            return false; */
         return id == -1;
     }
 

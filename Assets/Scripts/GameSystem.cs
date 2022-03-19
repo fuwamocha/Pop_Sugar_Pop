@@ -6,41 +6,22 @@ using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour
 {
-    [SerializeField] ScoreCounter score;
+    [SerializeField] Score score;
     [SerializeField] BallGenerator ballGenerator;
     [SerializeField] EffectSpawner effectSpawner;
     [SerializeField] List<Ball> removeBalls = new List<Ball>();
-    [SerializeField] Text timerText;
 
-    [SerializeField] GameObject resultPanel;
     Ball currentDraggingBall;
-    int timeCount;
     bool isDragging;
-    bool gameOver;
+    public bool gameOver { get; private set; }
 
     void Start()
     {
         SoundManager.instance.PlayBGM(SoundManager.BGM.Main);
 
-        timeCount = ParamsSO.Entity.TimeLimit;
-
         score.Add(0);
 
         StartCoroutine(ballGenerator.Spawns(ParamsSO.Entity.InitBallCount));
-        StartCoroutine(CountDown());
-    }
-
-    IEnumerator CountDown()
-    {
-        while (timeCount > 0)
-        {
-            yield return new WaitForSeconds(1);
-            timeCount--;
-            timerText.text = timeCount.ToString();
-        }
-        Debug.Log("タイムアップ");
-        gameOver = true;
-        resultPanel.SetActive(true);
     }
 
     public void OnRetryButton()
@@ -77,7 +58,12 @@ public class GameSystem : MonoBehaviour
 
             if (ball.IsBomb())
             {
-                Explosion(ball);
+                Bomb bomb = hit.collider.GetComponent<Bomb>();
+                int removeCount = bomb.Explosion(ball);
+
+                score.Add(removeCount * ParamsSO.Entity.ScorePoint);
+                StartCoroutine(ballGenerator.Spawns(removeCount));
+                effectSpawner.Score(bomb.transform.position, removeCount * ParamsSO.Entity.ScorePoint);
             }
             else
             {
@@ -152,30 +138,8 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    void Explosion(Ball bomb)
+    public void SetGameOverFlag(bool status)
     {
-        List<Ball> explosionList = new List<Ball>();
-        Collider2D[] hitObj = Physics2D.OverlapCircleAll(bomb.transform.position, ParamsSO.Entity.BombRange);
-
-        for (int i = 0; i < hitObj.Length; i++)
-        {
-            Ball ball = hitObj[i].GetComponent<Ball>();
-            if (ball)
-            {
-                explosionList.Add(ball);
-            }
-        }
-
-        int removeCount = explosionList.Count;
-        for (int i = 0; i < removeCount; i++)
-        {
-            explosionList[i].Explosion();
-        }
-        score.Add(removeCount * ParamsSO.Entity.ScorePoint);
-        StartCoroutine(ballGenerator.Spawns(removeCount));
-        effectSpawner.Score(bomb.transform.position, removeCount * ParamsSO.Entity.ScorePoint);
-
-        SoundManager.instance.PlaySE(SoundManager.SE.Destroy);
+        gameOver = status;
     }
-
 }
