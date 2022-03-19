@@ -18,4 +18,4 @@ MonoBehaviour:
   _scorePoint: 100
   _ballDistance: 1.5
   _bombRange: 1.23
-  _bombRate: 20
+  _bombRate: 5

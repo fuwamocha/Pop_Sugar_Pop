@@ -348,12 +348,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourceBGM: {fileID: 65344807}
   BGMClips:
-  - {fileID: 8300000, guid: 6eed7c65ba8a5d543b5d38544e9a8295, type: 3}
+  - {fileID: 8300000, guid: cb1cad42b97c0d144809f4f1c51212f7, type: 3}
   - {fileID: 8300000, guid: 6eed7c65ba8a5d543b5d38544e9a8295, type: 3}
   audioSourceSE: {fileID: 65344806}
   SEClips:
-  - {fileID: 8300000, guid: 39ce96116a2a94f2a8bb055e54e65eb5, type: 3}
-  - {fileID: 8300000, guid: b2fa09c76e0c543cfa8396563aa40ea2, type: 3}
+  - {fileID: 8300000, guid: 3969afb9a7840ed42abc0cfe8302c363, type: 3}
+  - {fileID: 8300000, guid: 9b0a2862b71c1ff468214e5c0abcc8d8, type: 3}
 --- !u!4 &65344809
 Transform:
   m_ObjectHideFlags: 0
