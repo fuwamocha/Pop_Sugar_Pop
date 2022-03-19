@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ParamsSO
   m_EditorClassIdentifier: 
   _timeLimit: 30
-  _initBallCount: 40
+  _initBallCount: 60
   _ballMinNumber: 3
   _scorePoint: 100
   _ballDistance: 1.5

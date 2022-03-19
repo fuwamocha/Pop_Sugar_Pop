@@ -12,7 +12,7 @@ public class BallGenerator : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            Vector2 pos = new Vector2(Random.Range(-0.2f, 0.2f), 8f);
+            Vector2 pos = new Vector2(Random.Range(-0.1f, 0.1f), 8f);
 
             GameObject ball = Instantiate(ballPrefab, pos, Quaternion.identity);
 
