@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659510f052baaa749918f893e9029247, type: 3}
   m_Name: ParamsSO
   m_EditorClassIdentifier: 
+  timeLimit: 30
   initBallCount: 40
+  ballMinNumber: 3
   scorePoint: 100
   ballDistance: 1.5
   bombRange: 1.28
+  bombRate: 20

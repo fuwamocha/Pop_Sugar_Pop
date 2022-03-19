@@ -18,7 +18,7 @@ public class BallGenerator : MonoBehaviour
 
             int ballID = Random.Range(0, ballSprites.Length);
 
-            if (Random.Range(0, 100) < 30) // 3％の確率でtrue
+            if (Random.Range(0, 100) < ParamsSO.Entity.bombRate) // 3％の確率でtrue
             {
                 ballID = -1;
                 ball.GetComponent<SpriteRenderer>().sprite = bombSprite;

@@ -22,7 +22,7 @@ public class GameSystem : MonoBehaviour
     {
         SoundManager.instance.PlayBGM(SoundManager.BGM.Main);
         score = 0;
-        timeCount = 30;
+        timeCount = ParamsSO.Entity.timeLimit;
 
         AddScore(score);
 
@@ -124,7 +124,7 @@ public class GameSystem : MonoBehaviour
     {
         int removeCount = removeBalls.Count;
 
-        if (removeCount >= 3)
+        if (removeCount >= ParamsSO.Entity.ballMinNumber)
         {
             for (int i = 0; i < removeCount; i++)
             {
