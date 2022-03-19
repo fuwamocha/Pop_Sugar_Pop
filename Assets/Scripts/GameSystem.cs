@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour
 {
+    [SerializeField] ScoreCounter score;
     [SerializeField] BallGenerator ballGenerator;
+    [SerializeField] EffectSpawner effectSpawner;
     [SerializeField] List<Ball> removeBalls = new List<Ball>();
-    [SerializeField] Text scoreText;
     [SerializeField] Text timerText;
-    [SerializeField] GameObject pointEffectPrefab;
+
     [SerializeField] GameObject resultPanel;
     Ball currentDraggingBall;
-    int score;
     int timeCount;
     bool isDragging;
     bool gameOver;
@@ -21,10 +21,10 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         SoundManager.instance.PlayBGM(SoundManager.BGM.Main);
-        score = 0;
+
         timeCount = ParamsSO.Entity.TimeLimit;
 
-        AddScore(score);
+        score.Add(0);
 
         StartCoroutine(ballGenerator.Spawns(ParamsSO.Entity.InitBallCount));
         StartCoroutine(CountDown());
@@ -43,12 +43,6 @@ public class GameSystem : MonoBehaviour
         resultPanel.SetActive(true);
     }
 
-    void AddScore(int point)
-    {
-        score += point;
-        scoreText.text = score.ToString();
-    }
-
     public void OnRetryButton()
     {
         SceneManager.LoadScene("Main");
@@ -56,14 +50,10 @@ public class GameSystem : MonoBehaviour
 
     void Update()
     {
-        if (gameOver)
-        {
-            return;
-        }
+        if (gameOver) return;
 
         if (Input.GetMouseButtonDown(0))
         {
-
             OnDragBegin();
         }
         else if (Input.GetMouseButtonUp(0))
@@ -130,10 +120,10 @@ public class GameSystem : MonoBehaviour
             {
                 removeBalls[i].Explosion();
             }
-            int score = removeCount * ParamsSO.Entity.ScorePoint;
-            AddScore(score);
+            score.Add(removeCount * ParamsSO.Entity.ScorePoint);
+
             StartCoroutine(ballGenerator.Spawns(removeCount));
-            SpawnPointEffect(removeBalls[removeCount - 1].transform.position, score);
+            effectSpawner.Score(removeBalls[removeCount - 1].transform.position, removeCount * ParamsSO.Entity.ScorePoint);
 
             SoundManager.instance.PlaySE(SoundManager.SE.Destroy);
         }
@@ -158,7 +148,6 @@ public class GameSystem : MonoBehaviour
             SoundManager.instance.PlaySE(SoundManager.SE.Touch);
 
             ball.transform.localScale = Vector3.one * 1.4f;
-            ball.GetComponent<SpriteRenderer>().color = Color.yellow;
             removeBalls.Add(ball);
         }
     }
@@ -182,18 +171,11 @@ public class GameSystem : MonoBehaviour
         {
             explosionList[i].Explosion();
         }
-        int score = removeCount * ParamsSO.Entity.ScorePoint;
-        AddScore(score);
+        score.Add(removeCount * ParamsSO.Entity.ScorePoint);
         StartCoroutine(ballGenerator.Spawns(removeCount));
-        SpawnPointEffect(bomb.transform.position, score);
+        effectSpawner.Score(bomb.transform.position, removeCount * ParamsSO.Entity.ScorePoint);
 
         SoundManager.instance.PlaySE(SoundManager.SE.Destroy);
     }
 
-    void SpawnPointEffect(Vector2 position, int score)
-    {
-        GameObject effectObj = Instantiate(pointEffectPrefab, position, Quaternion.identity);
-        PointEffect pointEffect = effectObj.GetComponent<PointEffect>();
-        pointEffect.Show(score);
-    }
 }
